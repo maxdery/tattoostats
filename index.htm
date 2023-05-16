@@ -9,38 +9,38 @@
   <script>
     // Récupère les données du fichier Google Sheets
     function getDataFromGoogleSheets() {
-      var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1SXK2ruELgSaaPD5QSlMvUzvIn2IoLZ4BhJSyvSGQgZg/edit?usp=sharing';
-      var targetDivId = 'conteneur_test';
+       var publicSpreadsheetUrl = 'https://docs.google.com/spreadsheets/d/1SXK2ruELgSaaPD5QSlMvUzvIn2IoLZ4BhJSyvSGQgZg/edit?usp=sharing';
+       var targetDivId = 'conteneur_test';
+	  
+	   Tabletop.init({
+         key: publicSpreadsheetUrl,
+         callback: function(data, tabletop) { // Ajoutez le paramètre tabletop ici
+           displayData(data, targetDivId);
+         },
+         simpleSheet: true
+		});
+	}
 
-      Tabletop.init({
-        key: publicSpreadsheetUrl,
-        callback: function(data) {
-          displayData(data, targetDivId);
-        },
-        simpleSheet: true
-      });
-    }
+	// Affiche les données sur votre site web
+	function displayData(data, targetDivId) {
+	  var targetDiv = document.getElementById(targetDivId);
 
-    // Affiche les données sur votre site web
-    function displayData(data, targetDivId) {
-      var targetDiv = document.getElementById(targetDivId);
+	  // Manipulez les données et affichez-les sur votre site web selon vos besoins
+	  // Par exemple, vous pouvez utiliser une boucle pour parcourir les données et créer des éléments HTML pour les afficher.
 
-      // Manipulez les données et affichez-les sur votre site web selon vos besoins
-      // Par exemple, vous pouvez utiliser une boucle pour parcourir les données et créer des éléments HTML pour les afficher.
+	  // Exemple simple pour afficher les données dans une liste non ordonnée
+	  var ul = document.createElement('ul');
+	  data.forEach(function(item) {
+		var li = document.createElement('li');
+		li.textContent = item.nom + ': ' + item.valeur;
+		ul.appendChild(li);
+	  });
 
-      // Exemple simple pour afficher les données dans une liste non ordonnée
-      var ul = document.createElement('ul');
-      data.forEach(function(item) {
-        var li = document.createElement('li');
-        li.textContent = item.nom + ': ' + item.valeur;
-        ul.appendChild(li);
-      });
+	  targetDiv.appendChild(ul);
+	}
 
-      targetDiv.appendChild(ul);
-    }
-
-    // Appelle la fonction pour récupérer les données
-    getDataFromGoogleSheets();
+	// Appelle la fonction pour récupérer les données
+	getDataFromGoogleSheets();
   </script>
   <div id='conteneur_test'></div>
 </body>
